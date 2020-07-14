@@ -36,6 +36,12 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+    
+    @GetMapping("/get/{id}")
+    public R get(@PathVariable String id) {
+        User user = userService.getById(id);
+        return R.ok().data("item",user);
+    }
 
     @ApiOperation(value = "获取管理用户分页列表")
     @GetMapping("{page}/{limit}")
