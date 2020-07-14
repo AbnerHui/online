@@ -8,11 +8,6 @@
         <el-input v-model="user.nickName"/>
       </el-form-item>
      
-      <el-form-item v-if="!user.id" label="用户密码" prop="password">
-        <el-input v-model="user.password"/>
-      </el-form-item>
-
-
       <el-form-item>
         <el-button :disabled="saveBtnDisabled" type="primary" @click="saveOrUpdate">保存</el-button>
       </el-form-item>
