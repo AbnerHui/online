@@ -88,8 +88,10 @@ export default {
 
     save(){
       this.saveBtnDisabled = true
-      //var ids = this.$refs.tree.getHalfCheckedKeys().join(",")+","+this.$refs.tree.getCheckedKeys().join(",");
-      var ids = this.$refs.tree.getCheckedKeys().join(",");
+      var ids = this.$refs.tree.getHalfCheckedKeys().join(",")+","+this.$refs.tree.getCheckedKeys().join(",");
+      if(ids === ',') {
+        ids = []
+      }
       console.log(ids)
       //vue elementUI tree树形控件获取父节点ID的实例
       //node_modules\element-ui\lib\element-ui.common.js
