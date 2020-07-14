@@ -290,20 +290,30 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     //=========================给角色分配菜单=======================
     @Override
     public void saveRolePermissionRealtionShipGuli(String roleId, String[] permissionIds) {
-        //roleId角色id
-        //permissionId菜单id 数组形式
-        //1 创建list集合，用于封装添加数据
-        List<RolePermission> rolePermissionList = new ArrayList<>();
-        //遍历所有菜单数组
-        for(String perId : permissionIds) {
-            //RolePermission对象
-            RolePermission rolePermission = new RolePermission();
-            rolePermission.setRoleId(roleId);
-            rolePermission.setPermissionId(perId);
-            //封装到list集合
-            rolePermissionList.add(rolePermission);
+
+        QueryWrapper<RolePermission> wrapper = new QueryWrapper<>();
+        wrapper.eq("role_id",roleId);
+        int count = rolePermissionService.count(wrapper);
+        if(count > 0) {
+            rolePermissionService.remove(wrapper);
         }
-        //添加到角色菜单关系表
-        rolePermissionService.saveBatch(rolePermissionList);
+
+        if(permissionIds != null) {
+            //roleId角色id
+            //permissionId菜单id 数组形式
+            //1 创建list集合，用于封装添加数据
+            List<RolePermission> rolePermissionList = new ArrayList<>();
+            //遍历所有菜单数组
+            for(String perId : permissionIds) {
+                //RolePermission对象
+                RolePermission rolePermission = new RolePermission();
+                rolePermission.setRoleId(roleId);
+                rolePermission.setPermissionId(perId);
+                //封装到list集合
+                rolePermissionList.add(rolePermission);
+            }
+            //添加到角色菜单关系表
+            rolePermissionService.saveBatch(rolePermissionList);
+        }
     }
 }
