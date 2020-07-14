@@ -69,9 +69,18 @@ public class RoleController {
         return R.ok();
     }
 
-    @ApiOperation(value = "删除角色")
+  @ApiOperation(value = "删除角色")
     @DeleteMapping("remove/{id}")
     public R remove(@PathVariable String id) {
+        //删除当前角色权限数据
+        QueryWrapper<RolePermission> wrapper = new QueryWrapper<>();
+        wrapper.eq("role_id",id);
+        rolePermissionService.remove(wrapper);
+        //删除角色和用户得关系记录
+        QueryWrapper<UserRole> roleQueryWrapper = new QueryWrapper<>();
+        roleQueryWrapper.eq("role_id",id);
+        userRoleService.remove(roleQueryWrapper);
+        //删除角色
         roleService.removeById(id);
         return R.ok();
     }
