@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/compat-data": "^7.10.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "element-ui": "^2.13.2",
     "js-cookie": "^2.2.1",
     "nuxt": "^2.0.0",
